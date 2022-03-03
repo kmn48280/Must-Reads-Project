@@ -13,6 +13,9 @@ import { getBooks } from './api/books';
 import { putUser } from './api/apiTokenAuth';
 import { deleteUser } from './api/apiTokenAuth';
 
+import  LoginForm  from './forms/LoginForm';
+import  RegisterForm from './forms/RegisterForm';
+
 
 /////////////WRAPPER TESTER////////////////////////////////
 const handleClick= async()=>{
@@ -29,6 +32,10 @@ function App() {
         <MenuAppBar/>
         <MyButton onClick={handleClick}>Do API Call</MyButton>
         <AltImageList />
+        <h2>Registration Form</h2>
+        <RegisterForm/>
+        <h2>Login</h2>
+        <LoginForm/>
         {/* <MyButton variant='contained'>Enter</MyButton> */}
       </ThemeProvider>
     </>
