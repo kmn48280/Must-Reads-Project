@@ -16,6 +16,10 @@ import { deleteUser } from './api/apiTokenAuth';
 import  LoginForm  from './forms/LoginForm';
 import  RegisterForm from './forms/RegisterForm';
 
+import SingleBook from './components/SingleBook';
+import ShowBooks from './components/ShowBooks';
+import ReadingList from './components/ReadingList';
+
 
 /////////////WRAPPER TESTER////////////////////////////////
 const handleClick= async()=>{
@@ -30,12 +34,10 @@ function App() {
     <>
       <ThemeProvider theme={standardTheme}>
         <MenuAppBar/>
-        <MyButton onClick={handleClick}>Do API Call</MyButton>
-        <AltImageList />
-        <h2>Registration Form</h2>
-        <RegisterForm/>
-        <h2>Login</h2>
-        <LoginForm/>
+        {/* <MyButton onClick={handleClick}>Do API Call</MyButton> */}
+        {/* <SingleBook /> */}
+        {/* <ShowBooks /> */}
+        <ReadingList/>
         {/* <MyButton variant='contained'>Enter</MyButton> */}
       </ThemeProvider>
     </>
