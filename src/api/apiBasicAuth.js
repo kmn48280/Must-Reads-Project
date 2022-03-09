@@ -4,7 +4,7 @@ const endpoint = '/login';
 
 
 // LOGIN FOR USER
-export const login = async ({email, password}, cancelToken) =>{
+export const getUser = async ({email, password}, cancelToken) =>{
     let error;
     let token;
     let user;
