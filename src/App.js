@@ -1,46 +1,27 @@
-import React from 'react';
-import './App.css';
-import MyButton from './components/Button';
-import AltImageList from './components/ImageList';
-import { ThemeProvider } from '@mui/material/styles';
-import standardTheme from './themes/standardTheme';
+import { useContext }from 'react';
+import { AppContext } from './context/AppContext';
 import MenuAppBar from './components/AppBar';
-
-import { CancelToken } from 'apisauce';
-import { postUser } from './api/createUser';
-import { login } from './api/apiBasicAuth';
-import { getBooks } from './api/books';
-import { putUser } from './api/apiTokenAuth';
-import { deleteUser } from './api/apiTokenAuth';
-
-import  LoginForm  from './forms/LoginForm';
-import  RegisterForm from './forms/RegisterForm';
-
-import SingleBook from './components/SingleBook';
-import ShowBooks from './components/ShowBooks';
-import ReadingList from './components/ReadingList';
+import BookBrowser from './views/BookBrowser';
+import LoginPage from './views/LoginPage';
+import Logout from './views/Logout';
 
 
-/////////////WRAPPER TESTER////////////////////////////////
-const handleClick= async()=>{
-  const source = CancelToken.source();
-  const response_object = await deleteUser({email:'ms@gmail.com', first_name:'Matthew'}, '8P2u4srUlzvD0boc2A2zkn0ulZiU0mthUGJQuvsVews', source.token);
-  console.log(response_object); 
-};
-///////////////////////////////////////////////////////////
+const HomePage = ()=>{return(<h1>Welcome to Kris' MustReads!</h1>)}
 
 function App() {
+  const{user} = useContext(AppContext);
+
   return (
     <>
-      <ThemeProvider theme={standardTheme}>
-        <MenuAppBar/>
-        {/* <MyButton onClick={handleClick}>Do API Call</MyButton> */}
-        {/* <SingleBook /> */}
-        {/* <ShowBooks /> */}
-        <LoginForm/>
-        {/* <ReadingList/> */}
-        {/* <MyButton variant='contained'>Enter</MyButton> */}
-      </ThemeProvider>
+      <MenuAppBar/>
+      <Routes>
+        <Route path='/' element={<HomePage/>}/>
+        <Route path='/books' element ={<BookBrowser/>}/>
+        <Route path='/books/:bookId' element={<SingleBook/>}/>
+        <Route path='/readinglistpage/:bookId' element={<ReadingListPage/>}/>
+        <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/logout' element={<Logout/>}/>
+      </Routes>
     </>
   );
 }

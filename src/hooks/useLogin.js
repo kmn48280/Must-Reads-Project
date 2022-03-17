@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { getUser } from '../api/apiBasicAuth';
 import { CancelToken } from 'apisauce';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function useLogin(loginCreds, setError, setUser, setLoginCreds) {
+
+    const navigate = useNavigate()
     
     useEffect(
         ()=>{
@@ -16,6 +19,7 @@ export default function useLogin(loginCreds, setError, setUser, setLoginCreds) {
                     setUser(response_object.user);
                     setError(response_object.error);
                     setLoginCreds({});
+                    navigate('/')
                 }
             };
             if (loginCreds.email && loginCreds.password){
@@ -23,7 +27,7 @@ export default function useLogin(loginCreds, setError, setUser, setLoginCreds) {
             };
             return ()=>{source.cancel()}
         },
-        [loginCreds, setLoginCreds, setUser, setError]
+        [loginCreds, setLoginCreds, setUser, setError, navigate]
     );
 };
             

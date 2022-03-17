@@ -16,9 +16,10 @@ const AppContextProvider = ({children}) =>{
     };
 
     const [user, _setUser] = useState(getUserFromLS())
+    const [alert, setAlert] = useState({})
     ////////////////////////////////// LIST OF BOOKS ///////////////////////
     const getBooksFromLS = ()=>{
-        let listOfBooks = localStorage.getItem('book');
+        let listOfBooks = localStorage.getItem('books');
         if (listOfBooks){
             return JSON.parse(listOfBooks)
         };
@@ -30,7 +31,7 @@ const AppContextProvider = ({children}) =>{
 
     useEffect(
         ()=>{
-            localStorage.setItem('listOfBooks', JSON.stingify(listOfBooks))
+            localStorage.setItem('listOfBooks', JSON.stringify(listOfBooks))
         },
         [listOfBooks]
     )
@@ -42,10 +43,12 @@ const AppContextProvider = ({children}) =>{
             localStorage.setItem('user', JSON.stringify(user))
             _setUser(user)
         },
+        alert,
+        setAlert,
         book,
         setBook,
         listOfBooks,
-        addBookToReadingList:(book)=>{
+        addBookToReadingList: (book)=>{
             dispatch({type: bookActions.addBookToReadingList, book})
         },
         removeBookFromReadingList: (book)=>{

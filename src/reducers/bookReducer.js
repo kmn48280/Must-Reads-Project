@@ -4,15 +4,15 @@ const bookActions={
     clearReadingList: 'clearReadingList'
 };
 
-function bookReducer(listOfBooks, {type, book}){
+function bookReducer(listOfBooks, {type, books}){
     switch(type){
         case bookActions.addBookToReadingList:
-            return [...listOfBooks, book];
+            return [...listOfBooks, books];
         
         case bookActions.removeBookFromReadingList:
             let newList = listOfBooks.slice();
             for (let bookToDelete of newList){
-                if (bookToDelete === book.id){
+                if (bookToDelete === books.id){
                     newList.splice(newList.indexOf(bookToDelete), 1)
                     return newList
                 }

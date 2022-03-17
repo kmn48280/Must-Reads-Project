@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useContext }from 'react';
+import { AppContext } from '../context/AppContext';
 import PropTypes from 'prop-types';
 import Rating from '@mui/material/Rating';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
@@ -9,6 +10,8 @@ import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfi
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
+import { IconButton } from '@mui/material';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const customIcons = {
   1: {
@@ -41,70 +44,50 @@ function IconContainer(props) {
 IconContainer.propTypes = {
   value: PropTypes.number.isRequired,
 };
+
 /////////////////////////////////////////////////////
 export default function ReadingList() {
+  const {listOfBooks, removeBookFromReadingList } = useContext(AppContext);
+
+  const handleRemoveFromReadingList=(book)=>{
+    removeBookFromReadingList(book)
+  };
+
   return (
+    
     <Stack col={3}>
-    <Box
-        sx={{
-        display: 'flex',
-        '& > :not(style)': {
-            m: 1,
-            width: 200,
-            height: 200,
-            backgroundImage: "https://s2982.pcdn.co/wp-content/uploads/2018/11/cat-flexing.jpg"
-        },
-        }}
-    >
-        <Paper variant="outlined" />
-    </Box>
-    
-    <Rating
-      name="highlight-selected-only"
-      defaultValue={2}
-      IconContainerComponent={IconContainer}
-      highlightSelectedOnly
-    />
-    <Box
-        sx={{
-        display: 'flex',
-        '& > :not(style)': {
-            m: 1,
-            width: 200,
-            height: 200,
-            backgroundImage: "https://s2982.pcdn.co/wp-content/uploads/2018/11/cat-flexing.jpg"
-        },
-        }}
-    >
-        <Paper variant="outlined" />
-    </Box>
-    
-    <Rating
-      name="highlight-selected-only"
-      defaultValue={2}
-      IconContainerComponent={IconContainer}
-      highlightSelectedOnly
-    />
-    <Box
-        sx={{
-        display: 'flex',
-        '& > :not(style)': {
-            m: 1,
-            width: 200,
-            height: 200,
-            backgroundImage: "https://s2982.pcdn.co/wp-content/uploads/2018/11/cat-flexing.jpg"
-        },
-        }}
-    >
-        <Paper variant="outlined" />
-    </Box>
-    
-    <Rating
-      name="highlight-selected-only"
-      defaultValue={2}
-      IconContainerComponent={IconContainer}
-      highlightSelectedOnly
-    />
+      {console.log(listOfBooks)}
+      {listOfBooks?.map((book)=>(
+        <Box 
+            key={book.id} 
+            sx={{
+            display: 'flex',
+            '& > :not(style)': {
+                m: 1,
+                width: 200,
+                height: 200,
+                backgroundImage: book.img
+            },
+            }}
+        >
+            <Paper variant="outlined" />
+       
+        
+            <Rating
+              name="highlight-selected-only"
+              defaultValue={2}
+              IconContainerComponent={IconContainer}
+              highlightSelectedOnly
+            />
+            <IconButton
+              color="primary"
+              aria-label='remove from reading list'
+              onClick={()=>handleRemoveFromReadingList(book)}
+              >
+                <DeleteOutlineIcon/>
+            </IconButton>
+        </Box>
+      ))}
     </Stack>
   );
 };
